@@ -20,7 +20,7 @@ llama-index-llms-litellm
 # --- Neo4j driver
 # Installed together with llama-index-graph-stores-neo4j. It is listed here because the
 # "start over" snippet in the README imports it directly.
-# The Neo4j database itself needs the APOC plugin and vector index support (Neo4j 5.x).
+# The Neo4j database itself needs the APOC plugin and vector index support (Neo4j 5.23 or newer).
 # Those live on the database server and cannot be installed with pip.
 neo4j
 
