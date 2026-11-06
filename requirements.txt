@@ -2,7 +2,7 @@
 # Dependencies for youtube-graph-rag-llamaindex
 # Covers Graph-self-make-youtube-reader-cmd.py
 # Python 3.10 or newer is recommended.
-# Versions are left unpinned except where the script needs a specific API.
+# Versions are left unpinned except where the script needs a specific API, and for torch (see below).
 # If pip reports a resolver conflict, install into a clean virtual environment
 # with a single "pip install -r requirements.txt".
 # ==============================================================================
@@ -38,9 +38,13 @@ tiktoken
 
 # --- Cross-encoder reranker (SentenceTransformerRerank)
 # Not imported by the script directly, but the reranker needs both packages at runtime.
-# torch is a large download, and the model weights are fetched from Hugging Face on the first run.
+# The model weights are fetched from Hugging Face on the first run.
+# CPU-only torch, pinned to the version used by the author (2.14.1+cpu).
+# The extra index below lets pip choose the CPU build, so the large NVIDIA CUDA wheels are not downloaded.
+# "==2.14.1" also matches the "+cpu" build, and still works on systems that have no "+cpu" label.
+--extra-index-url https://download.pytorch.org/whl/cpu
 sentence-transformers
-torch
+torch==2.14.1
 
 # --- Tracing with Arize Phoenix (phoenix.otel.register and the LlamaIndex instrumentor)
 arize-phoenix-otel
