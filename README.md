@@ -362,7 +362,9 @@ venv\Scripts\activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-> `torch` is a large download, so the first installation can take a while. The LlamaIndex ecosystem also ships as many small, fast-moving sub-packages. If you hit a resolver conflict, try installing into a clean virtual environment and letting `pip` resolve every package from `requirements.txt` in a single command rather than one at a time, since that gives it the full picture needed to pick mutually compatible versions.
+> `requirements.txt` asks pip for the CPU-only build of `torch` (pinned to version 2.14.1) from the PyTorch CPU index, so the large NVIDIA CUDA wheels are not downloaded. The first installation can still take a while, because the LlamaIndex ecosystem ships as many small, fast-moving sub-packages. If you hit a resolver conflict, try installing into a clean virtual environment and letting `pip` resolve every package from `requirements.txt` in a single command rather than one at a time, since that gives it the full picture needed to pick mutually compatible versions.
+>
+> To check which build of `torch` was installed, run `pip show torch` and look at the `Version` line. A CPU build ends with `+cpu`. If you want a GPU build instead, remove the `--extra-index-url` line from `requirements.txt`, and pip will take `torch` from PyPI.
 
 #### 4. Configure Environment Variables
 Create a `.env` file in the project root.
